@@ -3,6 +3,7 @@ import styles from "./button.module.scss";
 import React from "react";
 
 type ButtonType = {
+  id: string;
   disabled?: boolean;
   secondary?: boolean;
   size?: "small" | "medium" | "large";
@@ -13,6 +14,7 @@ type ButtonType = {
 };
 
 const Button = ({
+  id,
   disabled = false,
   secondary = false,
   size = "medium",
@@ -23,6 +25,7 @@ const Button = ({
 }: ButtonType) => {
   return (
     <button
+      id={id}
       style={{ width }}
       className={cn(
         styles.button,

@@ -1,6 +1,7 @@
 export default {
   COMMON: {
     TICKET_VIBES: "Ticket Vibes",
+    LOG_IN: "Log in",
   },
   LANDING: {
     TITLE: "Ticket Vibes",
@@ -14,6 +15,8 @@ export default {
     },
   },
   LOGIN: {
+    TITLE: "Login to Ticket Vibes",
+    FORGOT_PASSWORD: "Forgot password",
     EMAIL: "Email",
     PASSWORD: "Password",
     NAME: "Name",

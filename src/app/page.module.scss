@@ -14,7 +14,6 @@
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 100;
 
     /* Base styles for mobile devices */
     .navbar {
@@ -89,6 +88,26 @@
         color: var(--primary-light-blue);
       }
     }
+  }
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }
 
