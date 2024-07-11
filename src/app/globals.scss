@@ -1,0 +1,58 @@
+:root {
+  --border: #b9b9b9;
+  --shadow: rgba(40, 39, 37, 0.15);
+  --primary-white: #ffffff;
+  --primary-black: #313131;
+  --primary-light-blue: #2dd4ff;
+  --primary-light-blue-2: #20bdff;
+  --primary-blue: #338bff;
+  --primary-deep-blue: #5433ff;
+
+  /* for landing page */
+  --navbar-height: 3.5rem;
+  --landing-big-font-size: 3rem;
+  --landing-medium-font-size: 1.5rem;
+  --landing-small-font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  color: var(--primary-black);
+  font-weight: 400;
+  font-family: "Karla", "Open Sans", "Roboto", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+/* font size for landing page */
+@media screen and (min-width: 1024px) {
+  :root {
+    --landing-big-font-size: 5rem;
+    --landing-medium-font-size: 3rem;
+    --landing-small-font-size: 1.5rem;
+  }
+}
