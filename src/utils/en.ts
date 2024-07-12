@@ -3,6 +3,8 @@ export default {
     TICKET_VIBES: "Ticket Vibes",
     LOG_IN: "Log in",
     LOG_OUT: "Log out",
+    CANCEL: "Cancel",
+    CONFIRM: "Confirm",
   },
   LANDING: {
     TITLE: "Ticket Vibes",
@@ -38,6 +40,9 @@ export default {
       TOTAL_OF_SEATS_PLACEHOLDER: "Total seats of this concert",
       DESCRIPTION_PLACEHOLDER: "Please input description",
       SAVE: "Save",
+    },
+    CONFIRM: {
+      QUESTION: 'Are you sure to {0}?\n "{1}"',
     },
   },
 };

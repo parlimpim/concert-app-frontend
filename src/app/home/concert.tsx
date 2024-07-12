@@ -13,7 +13,7 @@ export type ConcertType = {
   createdAt: Date;
   updatedAt: Date;
   isReserved: boolean;
-  onClick: (_: boolean) => void;
+  onClick: (action: string, name: string, id: string) => void;
 };
 
 type ConcertProps = {
@@ -74,7 +74,7 @@ const Concert = ({
           id="action"
           disabled={!availableSeats && userRole === UserRole.USER}
           className={buttonClassname()}
-          onClick={() => onClick(isReserved)}
+          onClick={() => onClick(buttonLabel().toLowerCase(), name, id)}
         >
           <div>{buttonLabel()}</div>
         </Button>

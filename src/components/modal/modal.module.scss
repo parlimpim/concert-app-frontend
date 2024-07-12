@@ -52,4 +52,9 @@
     font-size: 25px;
     font-weight: 600;
   }
+
+  &__footer {
+    display: flex;
+    gap: 20px;
+  }
 }

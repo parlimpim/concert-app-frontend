@@ -7,6 +7,7 @@ import Concert, { ConcertType } from "./concert";
 import styles from "./styles/page.module.scss";
 import Tab, { MenuType } from "@/components/tab";
 import CreateConcert from "./createConcert";
+import ConfirmModal from "./confirmModal";
 
 enum HomeMenus {
   OVERVIEW = "overview",
@@ -26,6 +27,11 @@ const HomeMenusDetails: Record<HomeMenus, MenuType> = {
 
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState(HomeMenus.OVERVIEW as string);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [action, setAction] = useState("");
+  const [concertName, setConcertName] = useState("");
+  const [concertId, setConcertId] = useState("");
+
   const { loginRole } = useContext(UserContext)!;
   const { data, isLoading, error } = useConcerts({});
 
@@ -34,19 +40,26 @@ const Home = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   const onClick = useCallback(
-    (isReserved: boolean) => {
-      if (loginRole === UserRole.ADMIN) {
-        // show confirm delete dialog
-      } else if (isReserved) {
-        // case: user cancel concert
-        // show confirm dialog
-      } else {
-        // case: user reserve concert
-        // show confirm dialog
-      }
+    (action: string, concertName: string, concertId: string) => {
+      setConcertName(concertName);
+      setAction(action);
+      setConcertId(concertId);
+      setShowConfirmModal(true);
     },
     [loginRole],
   );
+
+  // TODO: mutate
+  const onDone = useCallback(() => {
+    switch (action) {
+      case "delete": {
+      }
+      case "cancel": {
+      }
+      case "reserve": {
+      }
+    }
+  }, [action, concertId]);
 
   return (
     <AppLayout>
@@ -82,6 +95,13 @@ const Home = () => {
         {/* Create */}
         {selectedTab === HomeMenus.CREATE && <CreateConcert />}
       </div>
+      <ConfirmModal
+        open={showConfirmModal}
+        setOpen={setShowConfirmModal}
+        onDone={onDone}
+        action={action}
+        concertName={concertName}
+      />
     </AppLayout>
   );
 };

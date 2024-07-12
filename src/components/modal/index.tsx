@@ -5,7 +5,6 @@ type ModalType = {
   open: boolean;
   title?: string;
   onClose: () => void;
-  onDone?: () => void;
   footers?: React.ReactNode[];
   width?: number;
   height?: number;
@@ -16,7 +15,6 @@ const Modal = ({
   open,
   title,
   onClose,
-  onDone,
   footers,
   width,
   height,
@@ -41,7 +39,9 @@ const Modal = ({
         <div className={styles.modal__body}>
           {title && <div className={styles.modal__title}>{title}</div>}
           {children}
-          {footers?.map((item) => item)}
+          <div className={styles.modal__footer}>
+            {footers?.map((item) => item)}
+          </div>
         </div>
       </div>
     </div>

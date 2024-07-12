@@ -1,0 +1,14 @@
+.confirm {
+  &__question {
+    white-space: pre-line;
+    text-align: center;
+    line-height: 1.5rem;
+  }
+
+  &__button {
+    &.delete,
+    &.cancel {
+      background-color: var(--primary-red);
+    }
+  }
+}
