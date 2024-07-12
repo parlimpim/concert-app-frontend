@@ -28,4 +28,16 @@ export default {
   SIDEBAR: {
     SWITCH_ROLE: "Switch Role to ",
   },
+  HOME: {
+    CREATE_CONCERT: {
+      CREATE: "Create New Concert",
+      CONCERT_NAME: "Concert name",
+      TOTAL_OF_SEATS: "Total of seats",
+      DESCRIPTION: "Description",
+      CONCERT_NAME_PLACEHOLDER: "Please input concert name",
+      TOTAL_OF_SEATS_PLACEHOLDER: "Total seats of this concert",
+      DESCRIPTION_PLACEHOLDER: "Please input description",
+      SAVE: "Save",
+    },
+  },
 };

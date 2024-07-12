@@ -1,0 +1,25 @@
+.tab {
+  width: 100%;
+  border-bottom: 1px solid var(--border);
+
+  &__menus {
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+  }
+
+  &__item {
+    padding: 1rem;
+    letter-spacing: 1px;
+
+    &.selected {
+      font-weight: 600;
+      border-bottom: 2px solid var(--primary-blue);
+      color: var(--primary-blue);
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

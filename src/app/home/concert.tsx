@@ -1,7 +1,7 @@
 import { FaRegUser } from "react-icons/fa";
 import cn from "classnames";
 import Button from "@/components/button";
-import styles from "./concert.module.scss";
+import styles from "./styles/concert.module.scss";
 import { UserRole } from "@/contexts/userContext";
 
 export type ConcertType = {

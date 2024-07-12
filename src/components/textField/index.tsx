@@ -1,4 +1,5 @@
 import { HTMLInputTypeAttribute, useEffect, useState } from "react";
+import cn from "classnames";
 import styles from "./textField.module.scss";
 
 export type TextFieldType = {
@@ -7,6 +8,9 @@ export type TextFieldType = {
   placeholder: string;
   label?: string;
   type?: HTMLInputTypeAttribute;
+  width?: number;
+  textarea?: boolean;
+  rows?: number;
   onChange: (newValue: string) => void;
 };
 
@@ -16,6 +20,9 @@ const TextField = ({
   placeholder,
   label,
   type,
+  width,
+  textarea,
+  rows,
   onChange,
 }: TextFieldType) => {
   const [value, setValue] = useState<string>(valueFromProps);
@@ -30,15 +37,28 @@ const TextField = ({
 
   return (
     <div className={styles.textField}>
-      {label && <div className={styles.textField__label}>{label}</div>}
-      <input
-        id={`${id}-input`}
-        className={styles.textField__input}
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-      />
+      {label && <div>{label}</div>}
+      {textarea ? (
+        <textarea
+          id={`${id}-textarea`}
+          className={cn(styles.textField__input, styles.textField__textarea)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          rows={rows}
+          style={{ width }}
+        />
+      ) : (
+        <input
+          id={`${id}-input`}
+          className={styles.textField__input}
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          style={{ width }}
+        />
+      )}
     </div>
   );
 };

@@ -16,4 +16,10 @@
       border: 2px solid var(--primary-blue);
     }
   }
+
+  &__textarea {
+    resize: none;
+    width: 700px;
+    height: auto;
+  }
 }
