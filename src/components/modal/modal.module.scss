@@ -11,8 +11,6 @@
   }
 
   &__container {
-    min-width: 450px;
-    min-height: 550px;
     max-width: 80vw;
     max-height: 90vh;
     background-color: var(--primary-white);
@@ -47,6 +45,7 @@
     flex-direction: column;
     gap: 30px;
     align-items: center;
+    padding: 3rem 2rem;
   }
 
   &__title {

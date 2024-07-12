@@ -1,6 +1,6 @@
 import styles from "./checkbox.module.scss";
 
-export type CheckboxType = {
+type CheckboxType = {
   id: string;
   checked: boolean;
   onChange: () => void;

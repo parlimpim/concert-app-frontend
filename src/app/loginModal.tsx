@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react";
-import Link from "next/link";
+import { useCallback, useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 import en from "@/utils/en";
-import styles from "./page.module.scss";
 
 // components
 import Modal from "@/components/modal";
@@ -9,12 +8,20 @@ import TextField from "@/components/textField";
 import PasswordField from "@/components/passwordField";
 import Button from "@/components/button";
 import Checkbox from "@/components/checkBox";
+import { loginUser } from "@/utils/auth";
+
+// contexts
+import { UserContext } from "@/contexts/userContext";
+
+import styles from "./page.module.scss";
+import LoadingSpinner from "@/components/loadingSpinner";
 
 const {
   LOGIN: { TITLE, EMAIL_PLACEHOLDER, PASSWORD_PLACEHOLDER, FORGOT_PASSWORD },
   COMMON: { LOG_IN },
 } = en;
 
+// TODO: handle sign up, show error message
 const LoginModal = ({
   open,
   setOpen,
@@ -25,16 +32,38 @@ const LoginModal = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const { setUser } = useContext(UserContext)!;
+  const router = useRouter();
 
-  const onClose = () => {
+  const navagateToHomePage = useCallback(() => {
+    router.push("/home");
+  }, []);
+
+  const onClose = useCallback(() => {
     setOpen(false);
-    console.log("close");
-  };
+  }, [setOpen]);
 
-  const handleLogin = useCallback(async () => {}, [email, password, isAdmin]);
+  const handleLogin = useCallback(async () => {
+    const params = { email, password, isAdmin };
+    setIsLoading(true);
+    try {
+      const user = await loginUser(params);
+      setUser(user);
+      navagateToHomePage();
+      onClose();
+    } catch (error: any) {
+      console.log("error", error);
+      setError(error?.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [email, password, isAdmin]);
 
   return (
     <Modal open={open} title={TITLE} onClose={onClose}>
+      <LoadingSpinner isLoading={isLoading} />
       <div className={styles.login}>
         <div className={styles.login__form}>
           <TextField
