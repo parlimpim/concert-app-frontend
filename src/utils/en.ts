@@ -2,6 +2,7 @@ export default {
   COMMON: {
     TICKET_VIBES: "Ticket Vibes",
     LOG_IN: "Log in",
+    LOG_OUT: "Log out",
   },
   LANDING: {
     TITLE: "Ticket Vibes",
@@ -23,5 +24,8 @@ export default {
     EMAIL_PLACEHOLDER: "Email Address",
     PASSWORD_PLACEHOLDER: "Password",
     NAME_PLACEHOLDER: "Name",
+  },
+  SIDEBAR: {
+    SWITCH_ROLE: "Switch Role to ",
   },
 };

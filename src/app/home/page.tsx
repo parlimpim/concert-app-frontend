@@ -1,15 +1,16 @@
 "use client";
 
-import { UserContext } from "@/contexts/userContext";
-import { useContext } from "react";
+import AppLayout from "@/layouts/appLayout";
 
 const Home = () => {
-  const { name } = useContext(UserContext)!;
+  //   const { name } = useContext(UserContext)!;
   return (
-    <div>
-      <div>home</div>
-      <div>name: {name}</div>
-    </div>
+    <AppLayout>
+      <div>
+        {/* <div>home</div> */}
+        {/* <div>name: {name}</div> */}
+      </div>
+    </AppLayout>
   );
 };
 

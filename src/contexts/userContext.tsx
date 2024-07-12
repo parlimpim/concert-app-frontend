@@ -6,7 +6,7 @@ type UserContextType = {
   email: string;
   name: string;
   role: string;
-  logintRole: string;
+  loginRole: string;
   setUser: (user: any) => void;
 };
 
@@ -65,7 +65,7 @@ const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({
     email: state.email,
     name: state.name,
     role: state.role,
-    logintRole: state.role,
+    loginRole: state.role,
     setUser,
   };
 
