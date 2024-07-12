@@ -63,7 +63,6 @@
           display: flex;
           gap: 15px;
           align-items: center;
-          padding-left: 5px;
         }
       }
     }
@@ -111,7 +110,7 @@
 }
 
 /* define style of sidebar detail */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .sidebar-container {
     .sidebar {
       height: min-content;

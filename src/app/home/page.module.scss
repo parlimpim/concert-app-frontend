@@ -1,0 +1,16 @@
+.home {
+  padding: 2rem 2rem;
+  height: 100vh;
+
+  &__concerts {
+    display: grid;
+    grid-row-gap: 20px;
+  }
+}
+
+/* screens larger than 768px (tablet and larger) */
+@media screen and (min-width: 768px) {
+  .home {
+    padding-left: 18rem;
+  }
+}

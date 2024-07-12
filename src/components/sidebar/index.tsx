@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import cn from "classnames";
 
@@ -10,11 +10,10 @@ import { HiSwitchHorizontal } from "react-icons/hi";
 import { LuLogOut } from "react-icons/lu";
 
 // contexts
-import { UserContext } from "@/contexts/userContext";
+import { UserContext, UserRole } from "@/contexts/userContext";
 import { SidebarContext, Menus, MenuDetails } from "@/contexts/sidebarContext";
 
 // utils
-import { UserRole } from "@/utils/enums";
 import en from "@/utils/en";
 
 import styles from "./sidebar.module.scss";
