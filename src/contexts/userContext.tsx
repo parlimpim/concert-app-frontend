@@ -1,13 +1,6 @@
 "use client";
+import { UserRole, UserRoleType } from "@/utils/enums";
 import { createContext, useEffect, useReducer } from "react";
-
-export enum UserRole {
-  USER = "user",
-  ADMIN = "admin",
-}
-
-type UserRoleKey = keyof typeof UserRole;
-export type UserRoleType = (typeof UserRole)[UserRoleKey];
 
 export type UserType = {
   id: string;

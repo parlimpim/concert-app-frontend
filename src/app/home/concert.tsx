@@ -1,9 +1,14 @@
 import { FaRegUser } from "react-icons/fa";
 import cn from "classnames";
+
+// components
 import Button from "@/components/button";
-import styles from "./styles/concert.module.scss";
-import { UserRole, UserRoleType } from "@/contexts/userContext";
+
+// utils
 import { ConcertType } from "@/utils/responseTypes";
+import { UserRole, UserRoleType } from "@/utils/enums";
+
+import styles from "./styles/concert.module.scss";
 
 type ConcertProps = {
   userRole: UserRoleType | "";

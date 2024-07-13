@@ -13,7 +13,7 @@ import { HiSwitchHorizontal } from "react-icons/hi";
 import { LuLogOut } from "react-icons/lu";
 
 // contexts
-import { UserContext, UserRole } from "@/contexts/userContext";
+import { UserContext } from "@/contexts/userContext";
 import { SidebarContext, Menus, MenuDetails } from "@/contexts/sidebarContext";
 
 // utils
@@ -22,6 +22,7 @@ import { formatString } from "@/utils";
 import { logoutUser, switchRole } from "@/utils/auth";
 import { ErrorResponse } from "@/utils/responseTypes";
 import { cancelTokenSource } from "@/utils/axiosInstance";
+import { UserRole } from "@/utils/enums";
 
 import LoadingSpinner from "../loadingSpinner";
 import styles from "./sidebar.module.scss";

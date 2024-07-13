@@ -1,16 +1,21 @@
 "use client";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useConcerts, useMutateDeleteConcert, useMutateHistory } from "@/hooks";
-import { UserContext, UserRole } from "@/contexts/userContext";
+import { UserContext } from "@/contexts/userContext";
 import AppLayout from "@/layouts/appLayout";
-import Concert from "./concert";
-import styles from "./styles/page.module.scss";
+
+// components
 import Tab, { MenuType } from "@/components/tab";
+import LoadingSpinner from "@/components/loadingSpinner";
+
+// utils
+import { ConcertType } from "@/utils/responseTypes";
+import { Status, UserRole } from "@/utils/enums";
+
+import Concert from "./concert";
 import CreateConcert from "./createConcert";
 import ConfirmModal from "./confirmModal";
-import LoadingSpinner from "@/components/loadingSpinner";
-import { ConcertType } from "@/utils/responseTypes";
-import { Status } from "@/utils/enums";
+import styles from "./styles/page.module.scss";
 
 enum HomeMenus {
   OVERVIEW = "overview",

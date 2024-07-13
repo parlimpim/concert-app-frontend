@@ -1,5 +1,5 @@
-import { UserRoleType } from "@/contexts/userContext";
 import axiosInstance from "./axiosInstance";
+import { UserRoleType } from "./enums";
 import { SwitchRoleOkResponse } from "./responseTypes";
 
 export const createUser = async (params: object) => {

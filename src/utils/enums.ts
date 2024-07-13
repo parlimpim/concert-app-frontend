@@ -11,3 +11,12 @@ export const StatusMap: Record<Status, string> = {
 
 type StatusKey = keyof typeof Status;
 export type StatusType = (typeof Status)[StatusKey];
+
+// User role
+export enum UserRole {
+  USER = "user",
+  ADMIN = "admin",
+}
+
+type UserRoleKey = keyof typeof UserRole;
+export type UserRoleType = (typeof UserRole)[UserRoleKey];
