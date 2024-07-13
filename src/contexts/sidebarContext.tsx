@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
+import { usePathname } from "next/navigation";
 import { FaHome, FaHistory } from "react-icons/fa";
 
 export enum Menus {
@@ -9,7 +10,7 @@ export enum Menus {
 
 export const MenuDetails: Record<Menus, { link: string; icon: any }> = {
   [Menus.HOME]: { link: "/home", icon: <FaHome /> },
-  [Menus.HISTORY]: { link: "history", icon: <FaHistory /> },
+  [Menus.HISTORY]: { link: "/history", icon: <FaHistory /> },
 };
 
 type MenusKey = keyof typeof Menus;
@@ -60,6 +61,22 @@ const SidebarContextProvider: React.FC<{ children?: React.ReactNode }> = ({
     selectedMenu: state.selectedMenu,
     setSelectedMenu,
   };
+
+  const pathname = usePathname();
+
+  // set sidebar menu if they have pathname
+  useEffect(() => {
+    if (pathname) {
+      console.log("pathname", pathname);
+      const selectedMenu = Object.values(Menus).find(
+        (menu: Menus) => MenuDetails[menu].link === pathname,
+      );
+      if (selectedMenu) {
+        console.log("setSelectedMenu", selectedMenu);
+        setSelectedMenu(selectedMenu);
+      }
+    }
+  }, []);
 
   return (
     <SidebarContext.Provider value={value}>{children}</SidebarContext.Provider>

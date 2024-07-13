@@ -17,15 +17,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  dehydratedState,
 }: Readonly<{
   children: React.ReactNode;
-  dehydratedState: any;
 }>) {
   return (
     <html lang="en">
       <body className={karla.className}>
-        <ReactQueryClientProvider dehydratedState={dehydratedState}>
+        <ReactQueryClientProvider>
           <ContextProvider>{children}</ContextProvider>
         </ReactQueryClientProvider>
       </body>
