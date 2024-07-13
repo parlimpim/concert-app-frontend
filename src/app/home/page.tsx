@@ -1,6 +1,11 @@
 "use client";
 import { useCallback, useContext, useState } from "react";
-import { useConcerts, useMutateConcert, useMutateDeleteConcert } from "@/hooks";
+import {
+  useConcerts,
+  useMutateConcert,
+  useMutateDeleteConcert,
+  useMutateHistory,
+} from "@/hooks";
 import { UserContext, UserRole } from "@/contexts/userContext";
 import AppLayout from "@/layouts/appLayout";
 import Concert, { ConcertType } from "./concert";
@@ -8,6 +13,8 @@ import styles from "./styles/page.module.scss";
 import Tab, { MenuType } from "@/components/tab";
 import CreateConcert from "./createConcert";
 import ConfirmModal from "./confirmModal";
+import { Status } from "@/hooks/history/useHistories";
+import LoadingSpinner from "@/components/loadingSpinner";
 
 enum HomeMenus {
   OVERVIEW = "overview",
@@ -33,7 +40,10 @@ const Home = () => {
   const [concertId, setConcertId] = useState("");
 
   // mutate
-  const { mutate: mutateDeleteConcert } = useMutateDeleteConcert(false);
+  const { mutate: mutateDeleteConcert, isPending: isPendingDeleteConcert } =
+    useMutateDeleteConcert(false);
+  const { mutate: mutateHistory, isPending: isPendingHistory } =
+    useMutateHistory(false);
 
   const { loginRole } = useContext(UserContext)!;
   const { data, isLoading, error } = useConcerts({});
@@ -57,10 +67,22 @@ const Home = () => {
         mutateDeleteConcert({
           id: concertId,
         });
+        break;
       }
       case "cancel": {
+        mutateHistory({
+          params: { concertId, status: Status.CANCELED },
+        });
+        break;
       }
       case "reserve": {
+        mutateHistory({
+          params: { concertId, status: Status.RESERVED },
+        });
+        break;
+      }
+      default: {
+        break;
       }
     }
   }, [action, concertId]);
@@ -69,7 +91,9 @@ const Home = () => {
   if (isLoading)
     return (
       <AppLayout>
-        <div className={styles.home}>Loading...</div>
+        <div className={styles.home}>
+          <LoadingSpinner size={100} />
+        </div>
       </AppLayout>
     );
   if (error)
@@ -119,6 +143,7 @@ const Home = () => {
         onDone={onDone}
         action={action}
         concertName={concertName}
+        isLoading={isPendingDeleteConcert || isPendingHistory}
       />
     </AppLayout>
   );

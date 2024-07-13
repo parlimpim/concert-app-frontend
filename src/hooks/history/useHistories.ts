@@ -3,7 +3,7 @@ import * as queryKeys from "../queryKeys";
 import { listHistories } from "@/utils/apiRequest";
 import { PaginationMetadataType } from "@/utils/pagination";
 
-enum Status {
+export enum Status {
   RESERVED = "reserved",
   CANCELED = "canceled",
 }

@@ -7,12 +7,14 @@ import Button from "@/components/button";
 
 import styles from "./styles/confirmModal.module.scss";
 import { formatString } from "@/utils";
+import LoadingSpinner from "@/components/loadingSpinner";
 
 type ConfirmModalType = {
   open: boolean;
   action: string;
   concertName: string;
   onDone: () => void;
+  isLoading: boolean;
   setOpen: (open: boolean) => void;
 };
 
@@ -29,6 +31,7 @@ const ConfirmModal = ({
   action,
   concertName,
   onDone,
+  isLoading,
 }: ConfirmModalType) => {
   const onClose = () => {
     setOpen(false);
@@ -51,6 +54,7 @@ const ConfirmModal = ({
 
   return (
     <Modal open={open} onClose={onClose} footers={footers}>
+      {isLoading && <LoadingSpinner />}
       <div className={styles.confirm}>
         <div className={styles.confirm__question}>
           {formatString(QUESTION, action, concertName)}

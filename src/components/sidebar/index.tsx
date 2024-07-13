@@ -82,7 +82,7 @@ const Sidebar = () => {
       queryClient.clear();
 
       // navigate to landing page
-      router.push("/");
+      window.location.replace("/");
     } catch (error: any) {
       if (error.response) {
         const { message } = error.response.data as ErrorResponse;

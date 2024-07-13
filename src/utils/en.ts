@@ -40,6 +40,7 @@ export default {
       TOTAL_OF_SEATS_PLACEHOLDER: "Total seats of this concert",
       DESCRIPTION_PLACEHOLDER: "Please input description",
       SAVE: "Save",
+      EMPTY_ERROR: "Some fields is empty.",
     },
     CONFIRM: {
       QUESTION: 'Are you sure to {0}?\n "{1}"',

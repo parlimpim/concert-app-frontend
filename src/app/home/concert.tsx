@@ -2,7 +2,7 @@ import { FaRegUser } from "react-icons/fa";
 import cn from "classnames";
 import Button from "@/components/button";
 import styles from "./styles/concert.module.scss";
-import { UserRole } from "@/contexts/userContext";
+import { UserRole, UserRoleType } from "@/contexts/userContext";
 
 export type ConcertType = {
   id: string;
@@ -17,7 +17,7 @@ export type ConcertType = {
 };
 
 type ConcertProps = {
-  userRole: UserRole;
+  userRole: UserRoleType | "";
 } & ConcertType;
 
 const Concert = ({
@@ -72,7 +72,9 @@ const Concert = ({
         <Button
           size="small"
           id="action"
-          disabled={!availableSeats && userRole === UserRole.USER}
+          disabled={
+            userRole === UserRole.USER && !isReserved && !availableSeats
+          }
           className={buttonClassname()}
           onClick={() => onClick(buttonLabel().toLowerCase(), name, id)}
         >

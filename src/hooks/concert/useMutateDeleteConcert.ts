@@ -1,8 +1,10 @@
 import { useCallback } from "react";
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createConcert, deleteConcert } from "@/utils/apiRequest";
+import { deleteConcert } from "@/utils/apiRequest";
 import * as queryKeys from "../queryKeys";
+import { ErrorResponse } from "@/utils/responseTypes";
 
 const useMutateDeleteConcert = (silent: boolean = true) => {
   const queryClient = useQueryClient();
@@ -24,13 +26,15 @@ const useMutateDeleteConcert = (silent: boolean = true) => {
 
   return useMutation({
     mutationFn: mutateDeleteConcert,
-    onError: (error, { onError }) => {
+    onError: (error: AxiosError<ErrorResponse>, { onError }) => {
       if (onError) {
         onError();
       }
 
       if (!silent) {
-        toast.error(error.message);
+        if (error.response) {
+          toast.error(error.response.data.message);
+        }
       }
     },
     onSuccess: ({ onSuccess, res }) => {
@@ -46,7 +50,11 @@ const useMutateDeleteConcert = (silent: boolean = true) => {
       }
 
       if (!silent) {
-        toast.success(res.data.message);
+        if (res.data.message) {
+          toast.success(res.data.message);
+        } else {
+          toast.success("Successful delete concert");
+        }
       }
     },
   });

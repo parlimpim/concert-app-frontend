@@ -7,7 +7,7 @@ type OkResponse = {
 
 export type ErrorResponse = {
   error: string;
-  message: string;
+  message: string | [];
   statusCode: number;
 };
 

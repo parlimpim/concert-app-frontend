@@ -11,6 +11,9 @@ export type TextFieldType = {
   width?: number;
   textarea?: boolean;
   rows?: number;
+  min?: number;
+  error?: boolean;
+  errorMessage?: string;
   onChange: (newValue: string) => void;
 };
 
@@ -23,6 +26,7 @@ const TextField = ({
   width,
   textarea,
   rows,
+  min,
   onChange,
 }: TextFieldType) => {
   const [value, setValue] = useState<string>(valueFromProps);
@@ -57,6 +61,8 @@ const TextField = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           style={{ width }}
+          min={min}
+          step={1}
         />
       )}
     </div>
