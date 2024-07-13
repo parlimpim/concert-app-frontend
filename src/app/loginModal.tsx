@@ -63,7 +63,7 @@ const LoginModal = ({
 
   return (
     <Modal open={open} title={TITLE} onClose={onClose}>
-      <LoadingSpinner isLoading={isLoading} />
+      {isLoading && <LoadingSpinner />}
       <div className={styles.login}>
         <div className={styles.login__form}>
           <TextField

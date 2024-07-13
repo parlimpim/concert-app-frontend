@@ -13,7 +13,7 @@ export type UserType = {
   id: string;
   email: string;
   name: string;
-  role: UserRoleType;
+  role: UserRoleType | "";
   loginRole: UserRoleType | "";
 };
 
@@ -29,7 +29,7 @@ interface State {
   id: string;
   email: string;
   name: string;
-  role: UserRole;
+  role: UserRole | "";
   loginRole: UserRole | "";
 }
 
@@ -42,14 +42,13 @@ const initialState: State = {
   id: "",
   email: "",
   name: "",
-  role: UserRole.USER,
+  role: "",
   loginRole: "",
 };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actions.SET_USER:
-      console.log("setuser", action.value);
       return { ...state, ...action.value };
     default:
       throw new Error("Unknown action");
@@ -76,9 +75,7 @@ const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({
 
   useEffect(() => {
     const storedState = localStorage.getItem("userContextValue");
-    console.log("storedState", storedState);
     if (storedState) {
-      console.log("set init");
       setUser(JSON.parse(storedState));
     }
   }, []);

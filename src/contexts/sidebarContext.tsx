@@ -67,12 +67,10 @@ const SidebarContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   // set sidebar menu if they have pathname
   useEffect(() => {
     if (pathname) {
-      console.log("pathname", pathname);
       const selectedMenu = Object.values(Menus).find(
         (menu: Menus) => MenuDetails[menu].link === pathname,
       );
       if (selectedMenu) {
-        console.log("setSelectedMenu", selectedMenu);
         setSelectedMenu(selectedMenu);
       }
     }

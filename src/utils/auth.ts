@@ -1,6 +1,6 @@
 import { UserRoleType } from "@/contexts/userContext";
 import axiosInstance from "./axiosInstance";
-import { SwitchRoleOkResponse } from "./responseType";
+import { SwitchRoleOkResponse } from "./responseTypes";
 
 export const createUser = async (params: object) => {
   const { data } = await axiosInstance.post("/users/register", params);
