@@ -116,15 +116,6 @@ const Home = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  // Todo: handle error and loading
-  if (isLoading)
-    return (
-      <AppLayout>
-        <div className={styles.home}>
-          <LoadingSpinner size={100} />
-        </div>
-      </AppLayout>
-    );
   if (error)
     return (
       <AppLayout>
@@ -135,6 +126,7 @@ const Home = () => {
   return (
     <AppLayout>
       <div className={styles.home}>
+        {isLoading && <LoadingSpinner />}
         {loginRole === UserRole.ADMIN && (
           <Tab
             id="home-tab"

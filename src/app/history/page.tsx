@@ -22,6 +22,7 @@ import { StatusMap } from "@/utils/enums";
 import { HistoryType } from "@/utils/responseTypes";
 
 import styles from "./page.module.scss";
+import LoadingSpinner from "@/components/loadingSpinner";
 
 const headers: Header[] = [
   {
@@ -78,13 +79,6 @@ const History = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  // Todo: handle error and loading
-  if (isLoading)
-    return (
-      <AppLayout>
-        <div className={styles.history}>Loading...</div>
-      </AppLayout>
-    );
   if (error)
     return (
       <AppLayout>
@@ -95,6 +89,7 @@ const History = () => {
   return (
     <AppLayout>
       <div className={styles.history}>
+        {isLoading && <LoadingSpinner />}
         <Table>
           <TableHeader headers={headers}></TableHeader>
           <TableBody>

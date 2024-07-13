@@ -1,7 +1,6 @@
 "use client";
 import { Fragment, useCallback, useContext, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
@@ -26,6 +25,7 @@ import { UserRole, Menus } from "@/utils/enums";
 
 import LoadingSpinner from "../loadingSpinner";
 import styles from "./sidebar.module.scss";
+import { useRouter } from "next/navigation";
 
 const {
   COMMON: { LOG_OUT },
@@ -48,6 +48,7 @@ const Sidebar = () => {
 
   const onClickMenu = useCallback((menu: Menus) => {
     setSelectedMenu(menu);
+    router.push(MenuDetails[menu].link);
   }, []);
 
   const onSwitchRole = useCallback(async () => {
@@ -96,7 +97,7 @@ const Sidebar = () => {
 
   return (
     <Fragment>
-      {isLoading && <LoadingSpinner size={100} />}
+      {isLoading && <LoadingSpinner />}
       <div className={styles["sidebar-container"]}>
         <div className={styles.sidebar}>
           <div
@@ -119,12 +120,10 @@ const Sidebar = () => {
                   })}
                   onClick={() => onClickMenu(menu)}
                 >
-                  <Link href={MenuDetails[menu].link}>
-                    <div className={styles.item__detail}>
-                      {MenuDetails[menu].icon}
-                      <div>{menu}</div>
-                    </div>
-                  </Link>
+                  <div className={styles.item__detail}>
+                    {MenuDetails[menu].icon}
+                    <div>{menu}</div>
+                  </div>
                 </li>
               ))}
               {role === UserRole.ADMIN && (

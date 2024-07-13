@@ -2,7 +2,7 @@ import React from "react";
 import { CircularProgress, Box } from "@mui/material";
 
 // TODO: make it float
-const LoadingSpinner = ({ size }: { size?: number }) => {
+const LoadingSpinner = () => {
   return (
     <Box
       sx={{
@@ -11,11 +11,9 @@ const LoadingSpinner = ({ size }: { size?: number }) => {
         left: "50%",
         transform: "translate(-50%, -50%)",
         zIndex: 1000,
-        width: size,
-        height: size,
       }}
     >
-      <CircularProgress />
+      <CircularProgress size={80} />
     </Box>
   );
 };
