@@ -3,21 +3,11 @@ import cn from "classnames";
 import Button from "@/components/button";
 import styles from "./styles/concert.module.scss";
 import { UserRole, UserRoleType } from "@/contexts/userContext";
-
-export type ConcertType = {
-  id: string;
-  name: string;
-  description: string;
-  seat: number;
-  availableSeats: number;
-  createdAt: Date;
-  updatedAt: Date;
-  isReserved: boolean;
-  onClick: (action: string, name: string, id: string) => void;
-};
+import { ConcertType } from "@/utils/responseTypes";
 
 type ConcertProps = {
   userRole: UserRoleType | "";
+  onClick: (action: string, name: string, id: string) => void;
 } & ConcertType;
 
 const Concert = ({

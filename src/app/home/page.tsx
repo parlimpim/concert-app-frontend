@@ -1,20 +1,16 @@
 "use client";
-import { useCallback, useContext, useState } from "react";
-import {
-  useConcerts,
-  useMutateConcert,
-  useMutateDeleteConcert,
-  useMutateHistory,
-} from "@/hooks";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useConcerts, useMutateDeleteConcert, useMutateHistory } from "@/hooks";
 import { UserContext, UserRole } from "@/contexts/userContext";
 import AppLayout from "@/layouts/appLayout";
-import Concert, { ConcertType } from "./concert";
+import Concert from "./concert";
 import styles from "./styles/page.module.scss";
 import Tab, { MenuType } from "@/components/tab";
 import CreateConcert from "./createConcert";
 import ConfirmModal from "./confirmModal";
 import { Status } from "@/hooks/history/useHistories";
 import LoadingSpinner from "@/components/loadingSpinner";
+import { ConcertType } from "@/utils/responseTypes";
 
 enum HomeMenus {
   OVERVIEW = "overview",
@@ -46,7 +42,20 @@ const Home = () => {
     useMutateHistory(false);
 
   const { loginRole } = useContext(UserContext)!;
-  const { data, isLoading, error } = useConcerts({});
+  const {
+    data,
+    isLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useConcerts();
+
+  const concerts = useMemo(() => {
+    return data?.pages.reduce((acc: ConcertType[], cur) => {
+      return [...acc, ...cur.data];
+    }, []);
+  }, [data]);
 
   const onClick = useCallback(
     (action: string, concertName: string, concertId: string) => {
@@ -58,7 +67,6 @@ const Home = () => {
     [loginRole],
   );
 
-  // TODO: mutate
   const onDone = useCallback(() => {
     setShowConfirmModal(false);
 
@@ -86,6 +94,22 @@ const Home = () => {
       }
     }
   }, [action, concertId]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const bottom =
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight;
+      if (bottom) {
+        if (!isFetchingNextPage && hasNextPage) {
+          fetchNextPage();
+        }
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
   // Todo: handle error and loading
   if (isLoading)
@@ -117,7 +141,7 @@ const Home = () => {
         {/* Overview */}
         {selectedTab === HomeMenus.OVERVIEW && (
           <div className={styles.home__concerts}>
-            {data?.data.map((item: ConcertType) => (
+            {concerts?.map((item: ConcertType) => (
               <Concert
                 key={item.id}
                 id={item.id}

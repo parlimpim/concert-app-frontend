@@ -1,8 +1,11 @@
 import axiosInstance from "./axiosInstance";
 import { createConcertType, createHistoryType } from "./requestTypes";
+import { ConcertType, PaginationData } from "./responseTypes";
 
 // concert
-export const listConcerts = async (params: any) => {
+export const listConcerts = async (
+  params: any,
+): Promise<PaginationData<ConcertType>> => {
   const { data } = await axiosInstance.get("/concerts", { params });
   return data;
 };
