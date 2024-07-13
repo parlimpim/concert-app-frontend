@@ -25,11 +25,13 @@
 
   &__description {
     line-height: 30px;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
   }
 
   &__seats {
