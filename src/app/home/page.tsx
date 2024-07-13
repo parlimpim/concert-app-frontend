@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { useConcerts, useMutateDeleteConcert, useMutateHistory } from "@/hooks";
 import { UserContext } from "@/contexts/userContext";
 import AppLayout from "@/layouts/appLayout";
@@ -7,6 +8,7 @@ import AppLayout from "@/layouts/appLayout";
 // components
 import Tab, { MenuType } from "@/components/tab";
 import LoadingSpinner from "@/components/loadingSpinner";
+import ErrorMessage from "@/components/errorMessage";
 
 // utils
 import { ConcertType } from "@/utils/responseTypes";
@@ -50,6 +52,7 @@ const Home = () => {
   const {
     data,
     isLoading,
+    isError,
     error,
     hasNextPage,
     fetchNextPage,
@@ -61,6 +64,16 @@ const Home = () => {
       return [...acc, ...cur.data];
     }, []);
   }, [data]);
+
+  const errorMessage = useMemo(() => {
+    if (isError) {
+      if (axios.isAxiosError(error) && error.response) {
+        return error.response.data.message;
+      } else {
+        return "An unexpected error occurred. Please check your network.";
+      }
+    }
+  }, [isError, error]);
 
   const onClick = useCallback(
     (action: string, concertName: string, concertId: string) => {
@@ -116,12 +129,15 @@ const Home = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  if (error)
+  if (isError) {
     return (
       <AppLayout>
-        <div className={styles.home}>Error: {error.message}</div>
+        <div className={styles.home}>
+          <ErrorMessage message={errorMessage} />
+        </div>
       </AppLayout>
     );
+  }
 
   return (
     <AppLayout>

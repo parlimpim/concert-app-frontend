@@ -2,10 +2,11 @@ import { useCallback } from "react";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createConcert } from "@/utils/apiRequest";
 import * as queryKeys from "../queryKeys";
+import { createConcert } from "@/utils/apiRequest";
 import { createConcertType } from "@/utils/requestTypes";
 import { ErrorResponse } from "@/utils/responseTypes";
+import { formatErrorMessage } from "@/utils/formatData";
 
 const useMutateConcert = (silent: boolean = true) => {
   const queryClient = useQueryClient();
@@ -35,11 +36,8 @@ const useMutateConcert = (silent: boolean = true) => {
       if (!silent) {
         if (error.response) {
           const { message } = error.response.data;
-          if (Array.isArray(message)) {
-            toast.error(error.response.data.message[0]);
-          }
-
-          toast.error(message);
+          const errorMessage = formatErrorMessage(message);
+          toast.error(errorMessage);
         }
       }
     },

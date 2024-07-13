@@ -12,6 +12,7 @@ const useConcerts = () => {
     queryKey: queryKeys.concerts(),
     queryFn: ({ pageParam }) => fetchConcerts({ pageParam }),
     initialPageParam: 1,
+    retry: 3,
     getNextPageParam: (lastPage, allPages) => {
       const morePagesExist =
         lastPage.metadata.page < lastPage.metadata.totalPages;

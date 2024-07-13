@@ -46,4 +46,7 @@ export default {
       QUESTION: 'Are you sure to {0}?\n "{1}"',
     },
   },
+  ERROR_MESSAGE: {
+    UNEXPECTED: "An unexpected error occurred. Please check your network.",
+  },
 };

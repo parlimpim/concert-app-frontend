@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo } from "react";
 import cn from "classnames";
+import axios from "axios";
 import AppLayout from "@/layouts/appLayout";
 
 // hooks
@@ -15,11 +16,13 @@ import {
   TableCell,
 } from "@/components/table";
 import { Header } from "@/components/table/tableHeader";
+import ErrorMessage from "@/components/errorMessage";
 
 // utils
 import { formatDate } from "@/utils";
 import { StatusMap } from "@/utils/enums";
 import { HistoryType } from "@/utils/responseTypes";
+import en from "@/utils/en";
 
 import styles from "./page.module.scss";
 import LoadingSpinner from "@/components/loadingSpinner";
@@ -47,9 +50,14 @@ const headers: Header[] = [
   },
 ];
 
+const {
+  ERROR_MESSAGE: { UNEXPECTED },
+} = en;
+
 const History = () => {
   const {
     data,
+    isError,
     isLoading,
     error,
     hasNextPage,
@@ -62,6 +70,16 @@ const History = () => {
       return [...acc, ...cur.data];
     }, []);
   }, [data]);
+
+  const errorMessage = useMemo(() => {
+    if (isError) {
+      if (axios.isAxiosError(error) && error.response) {
+        return error.response.data.message;
+      } else {
+        return UNEXPECTED;
+      }
+    }
+  }, [isError, error]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -82,7 +100,9 @@ const History = () => {
   if (error)
     return (
       <AppLayout>
-        <div className={styles.history}>Error: {error.message}</div>
+        <div className={styles.history}>
+          <ErrorMessage message={errorMessage} />
+        </div>
       </AppLayout>
     );
 

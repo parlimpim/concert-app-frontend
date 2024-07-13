@@ -1,6 +1,6 @@
 "use client";
 import { Fragment, useCallback, useContext, useMemo, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
@@ -22,14 +22,15 @@ import { logoutUser, switchRole } from "@/utils/auth";
 import { ErrorResponse } from "@/utils/responseTypes";
 import { cancelTokenSource } from "@/utils/axiosInstance";
 import { UserRole, Menus } from "@/utils/enums";
+import { formatErrorMessage } from "@/utils/formatData";
 
 import LoadingSpinner from "../loadingSpinner";
 import styles from "./sidebar.module.scss";
-import { useRouter } from "next/navigation";
 
 const {
   COMMON: { LOG_OUT },
   SIDEBAR: { SWITCH_ROLE },
+  ERROR_MESSAGE: { UNEXPECTED },
 } = en;
 
 const Sidebar = () => {
@@ -57,11 +58,14 @@ const Sidebar = () => {
     try {
       const response = await switchRole(newRole);
       setUser(response.user);
-      // window.location.reload();
+      window.location.reload();
     } catch (error: any) {
       if (error.response) {
         const { message } = error.response.data as ErrorResponse;
-        toast.error(message);
+        const errorMessage = formatErrorMessage(message);
+        toast.error(errorMessage);
+      } else {
+        toast.error(UNEXPECTED);
       }
     } finally {
       setIsLoading(false);

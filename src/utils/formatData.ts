@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import en from "./en";
 
 export const formatDate = (dateStr: string) => {
   if (!dateStr) return "-";
@@ -12,4 +13,12 @@ export const formatString = (s: string, ...args: any[]) => {
   return s.replace(/{([0-9]+)}/g, function (match, index) {
     return typeof args[index] === "undefined" ? match : args[index];
   });
+};
+
+export const formatErrorMessage = (message: string | []) => {
+  if (Array.isArray(message) && message.length) {
+    return message[0];
+  } else {
+    return message;
+  }
 };

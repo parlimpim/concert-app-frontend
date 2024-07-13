@@ -1,5 +1,6 @@
 import { useCallback, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 // contexts
 import { UserContext } from "@/contexts/userContext";
@@ -15,15 +16,17 @@ import LoadingSpinner from "@/components/loadingSpinner";
 // utils
 import en from "@/utils/en";
 import { loginUser } from "@/utils/auth";
+import { ErrorResponse } from "@/utils/responseTypes";
+import { formatErrorMessage } from "@/utils/formatData";
 
 import styles from "./page.module.scss";
 
 const {
-  LOGIN: { TITLE, EMAIL_PLACEHOLDER, PASSWORD_PLACEHOLDER, FORGOT_PASSWORD },
+  LOGIN: { TITLE, EMAIL_PLACEHOLDER, PASSWORD_PLACEHOLDER },
   COMMON: { LOG_IN },
+  ERROR_MESSAGE: { UNEXPECTED },
 } = en;
 
-// TODO: handle sign up, show error message
 const LoginModal = ({
   open,
   setOpen,
@@ -35,7 +38,6 @@ const LoginModal = ({
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const { setUser } = useContext(UserContext)!;
   const router = useRouter();
 
@@ -56,8 +58,13 @@ const LoginModal = ({
       navagateToHomePage();
       onClose();
     } catch (error: any) {
-      console.log("error", error);
-      setError(error?.message);
+      if (error.response) {
+        const { message } = error.response.data as ErrorResponse;
+        const errorMessage = formatErrorMessage(message);
+        toast.error(errorMessage);
+      } else {
+        toast.error(UNEXPECTED);
+      }
     } finally {
       setIsLoading(false);
     }
