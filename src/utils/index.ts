@@ -1,3 +1,3 @@
-import { formatString } from "./formatString";
+import { formatString, formatDate } from "./formatData";
 
-export { formatString };
+export { formatString, formatDate };

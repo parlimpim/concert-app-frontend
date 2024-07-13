@@ -10,7 +10,7 @@ import {
 import styles from "./page.module.scss";
 import { Header } from "@/components/table/tableHeader";
 import { useHistories } from "@/hooks";
-import { formatDate } from "@/utils/formatDate";
+import { formatDate } from "@/utils";
 import cn from "classnames";
 import { StatusMap } from "@/utils/enums";
 import { useEffect, useMemo } from "react";
