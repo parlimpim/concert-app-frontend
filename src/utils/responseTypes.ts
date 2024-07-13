@@ -1,4 +1,5 @@
 import { UserType } from "@/contexts/userContext";
+import { StatusType } from "./enums";
 
 export type PaginationMetadataType = {
   itemCount: number;
@@ -39,4 +40,14 @@ export type ConcertType = {
   createdAt: Date;
   updatedAt: Date;
   isReserved: boolean;
+};
+
+// history
+export type HistoryType = {
+  id: string;
+  status: StatusType;
+  createdAt: string;
+  updatedAt: string;
+  concert: { name: string };
+  user: { name: string; email: string };
 };

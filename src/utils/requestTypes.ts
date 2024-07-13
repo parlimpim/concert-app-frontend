@@ -1,4 +1,4 @@
-import { StatusType } from "@/hooks/history/useHistories";
+import { StatusType } from "./enums";
 
 export type createConcertType = {
   name: string;

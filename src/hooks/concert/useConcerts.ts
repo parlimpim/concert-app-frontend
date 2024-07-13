@@ -3,9 +3,8 @@ import * as queryKeys from "../queryKeys";
 import { listConcerts } from "@/utils/apiRequest";
 
 const fetchConcerts = async ({ pageParam }: { pageParam: any }) => {
-  const { data, metadata } = await listConcerts({ page: pageParam });
-
-  return { data, metadata };
+  const response = await listConcerts({ page: pageParam });
+  return response;
 };
 
 const useConcerts = () => {

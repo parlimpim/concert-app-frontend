@@ -1,24 +1,119 @@
+"use client";
+import AppLayout from "@/layouts/appLayout";
 import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import ReservationHistory from "./reservationHistory";
-import { listHistories } from "@/utils/apiRequest";
-import * as queryKeys from "../../hooks/queryKeys";
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@/components/table";
+import styles from "./page.module.scss";
+import { Header } from "@/components/table/tableHeader";
+import { useHistories } from "@/hooks";
+import { formatDate } from "@/utils/formatDate";
+import cn from "classnames";
+import { StatusMap } from "@/utils/enums";
+import { useEffect, useMemo } from "react";
+import { HistoryType } from "@/utils/responseTypes";
 
-const History = async () => {
-  const queryClient = new QueryClient();
+const headers: Header[] = [
+  {
+    key: "date-time",
+    header: "Date Time",
+  },
+  {
+    key: "user-name",
+    header: "User Name",
+  },
+  {
+    key: "user-email",
+    header: "User Email",
+  },
+  {
+    key: "concert-name",
+    header: "Concert Name",
+  },
+  {
+    key: "action",
+    header: "Action",
+  },
+];
 
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.histories({}),
-    queryFn: listHistories,
-  });
+const History = () => {
+  const {
+    data,
+    isLoading,
+    error,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useHistories();
+
+  const histories = useMemo(() => {
+    return data?.pages.reduce((acc: HistoryType[], cur) => {
+      return [...acc, ...cur.data];
+    }, []);
+  }, [data]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const bottom =
+        window.innerHeight + document.documentElement.scrollTop ===
+        document.documentElement.offsetHeight;
+      if (bottom) {
+        if (!isFetchingNextPage && hasNextPage) {
+          fetchNextPage();
+        }
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isFetchingNextPage, hasNextPage, fetchNextPage]);
+
+  // Todo: handle error and loading
+  if (isLoading)
+    return (
+      <AppLayout>
+        <div className={styles.history}>Loading...</div>
+      </AppLayout>
+    );
+  if (error)
+    return (
+      <AppLayout>
+        <div className={styles.history}>Error: {error.message}</div>
+      </AppLayout>
+    );
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ReservationHistory />
-    </HydrationBoundary>
+    <AppLayout>
+      <div className={styles.history}>
+        <Table>
+          <TableHeader headers={headers}></TableHeader>
+          <TableBody>
+            {histories?.map((history) => (
+              <TableRow
+                key={`${history.user.name}-${formatDate(history.createdAt)}`}
+              >
+                <TableCell>{formatDate(history.createdAt)}</TableCell>
+                <TableCell>{history.user.name}</TableCell>
+                <TableCell>{history.user.email}</TableCell>
+                <TableCell>{history.concert.name}</TableCell>
+                <TableCell>
+                  <div
+                    className={cn(styles.history__status, {
+                      [styles[history.status]]: history.status,
+                    })}
+                  >
+                    {StatusMap[history.status]}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </AppLayout>
   );
 };
 

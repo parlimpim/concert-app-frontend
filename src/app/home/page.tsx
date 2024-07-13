@@ -8,9 +8,9 @@ import styles from "./styles/page.module.scss";
 import Tab, { MenuType } from "@/components/tab";
 import CreateConcert from "./createConcert";
 import ConfirmModal from "./confirmModal";
-import { Status } from "@/hooks/history/useHistories";
 import LoadingSpinner from "@/components/loadingSpinner";
 import { ConcertType } from "@/utils/responseTypes";
+import { Status } from "@/utils/enums";
 
 enum HomeMenus {
   OVERVIEW = "overview",

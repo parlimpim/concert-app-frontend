@@ -1,6 +1,6 @@
 import axiosInstance from "./axiosInstance";
 import { createConcertType, createHistoryType } from "./requestTypes";
-import { ConcertType, PaginationData } from "./responseTypes";
+import { ConcertType, HistoryType, PaginationData } from "./responseTypes";
 
 // concert
 export const listConcerts = async (
@@ -21,7 +21,9 @@ export const deleteConcert = async (id: string) => {
 };
 
 // history
-export const listHistories = async (params: any) => {
+export const listHistories = async (
+  params: any,
+): Promise<PaginationData<HistoryType>> => {
   const { data } = await axiosInstance.get("/reservations", { params });
   return data;
 };

@@ -1,2 +1,2 @@
 export const concerts = () => ["concerts"];
-export const histories = (params?: any) => ["histories", params];
+export const histories = () => ["histories"];
