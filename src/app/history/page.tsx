@@ -1,5 +1,12 @@
 "use client";
+import { useEffect, useMemo } from "react";
+import cn from "classnames";
 import AppLayout from "@/layouts/appLayout";
+
+// hooks
+import { useHistories } from "@/hooks";
+
+// components
 import {
   Table,
   TableHeader,
@@ -7,14 +14,14 @@ import {
   TableRow,
   TableCell,
 } from "@/components/table";
-import styles from "./page.module.scss";
 import { Header } from "@/components/table/tableHeader";
-import { useHistories } from "@/hooks";
+
+// utils
 import { formatDate } from "@/utils";
-import cn from "classnames";
 import { StatusMap } from "@/utils/enums";
-import { useEffect, useMemo } from "react";
 import { HistoryType } from "@/utils/responseTypes";
+
+import styles from "./page.module.scss";
 
 const headers: Header[] = [
   {

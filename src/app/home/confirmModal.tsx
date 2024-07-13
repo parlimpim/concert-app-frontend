@@ -4,10 +4,12 @@ import en from "@/utils/en";
 // components
 import Modal from "@/components/modal";
 import Button from "@/components/button";
+import LoadingSpinner from "@/components/loadingSpinner";
+
+// utils
+import { formatString } from "@/utils";
 
 import styles from "./styles/confirmModal.module.scss";
-import { formatString } from "@/utils";
-import LoadingSpinner from "@/components/loadingSpinner";
 
 type ConfirmModalType = {
   open: boolean;

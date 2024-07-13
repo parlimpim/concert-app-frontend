@@ -1,6 +1,8 @@
 import { useCallback, useState, useContext } from "react";
 import { useRouter } from "next/navigation";
-import en from "@/utils/en";
+
+// contexts
+import { UserContext } from "@/contexts/userContext";
 
 // components
 import Modal from "@/components/modal";
@@ -8,13 +10,13 @@ import TextField from "@/components/textField";
 import PasswordField from "@/components/passwordField";
 import Button from "@/components/button";
 import Checkbox from "@/components/checkBox";
+import LoadingSpinner from "@/components/loadingSpinner";
+
+// utils
+import en from "@/utils/en";
 import { loginUser } from "@/utils/auth";
 
-// contexts
-import { UserContext } from "@/contexts/userContext";
-
 import styles from "./page.module.scss";
-import LoadingSpinner from "@/components/loadingSpinner";
 
 const {
   LOGIN: { TITLE, EMAIL_PLACEHOLDER, PASSWORD_PLACEHOLDER, FORGOT_PASSWORD },
