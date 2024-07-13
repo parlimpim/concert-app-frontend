@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Karla } from "next/font/google";
-import { ReactQueryClientProvider } from "@/utils/reactQueryClientProvider";
+import { ReactQueryClientProvider } from "@/providers/reactQueryClientProvider";
 import Notify from "@/utils/notify";
-import "./globals.scss";
-
-// context
 import ContextProvider from "@/contexts/providerComposer";
-
 import "./globals.scss";
 
 const karla = Karla({ subsets: ["latin"] });
