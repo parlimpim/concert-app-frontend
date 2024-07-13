@@ -1,7 +1,8 @@
 "use client";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import Link from "next/link";
 import cn from "classnames";
+import { toast } from "react-toastify";
 
 // icons
 import { IoMdClose, IoIosMenu } from "react-icons/io";
@@ -17,6 +18,9 @@ import { SidebarContext, Menus, MenuDetails } from "@/contexts/sidebarContext";
 import en from "@/utils/en";
 
 import styles from "./sidebar.module.scss";
+import { formatString } from "@/utils";
+import { switchRole } from "@/utils/auth";
+import { ErrorResponse } from "@/utils/responseType";
 
 const {
   COMMON: { LOG_OUT },
@@ -25,18 +29,38 @@ const {
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { email, name, loginRole, role } = useContext(UserContext)!;
+  const { email, name, loginRole, role, setUser } = useContext(UserContext)!;
   const { setSelectedMenu, selectedMenu } = useContext(SidebarContext)!;
+
+  const newRole = useMemo(() => {
+    const test = loginRole === UserRole.ADMIN ? UserRole.USER : UserRole.ADMIN;
+    return test;
+  }, [loginRole]);
 
   const onClickMenu = useCallback((menu: Menus) => {
     setSelectedMenu(menu);
   }, []);
 
+  const onSwitchRole = useCallback(async () => {
+    try {
+      const response = await switchRole(newRole);
+      setUser(response.user);
+      window.location.reload();
+    } catch (error: any) {
+      if (error.response) {
+        const { message } = error.response.data as ErrorResponse;
+        toast.error(message);
+      }
+    }
+  }, [newRole]);
+
   return (
     <div className={styles["sidebar-container"]}>
       <div className={styles.sidebar}>
         <div
-          className={cn(styles.sidebar__detail, { [styles.show]: showSidebar })}
+          className={cn(styles.sidebar__detail, {
+            [styles.show]: showSidebar,
+          })}
         >
           <div className={styles.sidebar__user}>
             <RxAvatar fontSize={"2rem"} color="#050C3F" />
@@ -62,18 +86,10 @@ const Sidebar = () => {
               </li>
             ))}
             {role === UserRole.ADMIN && (
-              <li
-                className={styles.item}
-                onClick={() => console.log("switch role")}
-              >
+              <li className={styles.item} onClick={onSwitchRole}>
                 <div className={styles.item__detail}>
                   <HiSwitchHorizontal />
-                  <div>
-                    {SWITCH_ROLE}
-                    {loginRole === UserRole.ADMIN
-                      ? UserRole.USER
-                      : UserRole.ADMIN}
-                  </div>
+                  <div>{formatString(SWITCH_ROLE, newRole)}</div>
                 </div>
               </li>
             )}

@@ -9,14 +9,17 @@ export enum UserRole {
 type UserRoleKey = keyof typeof UserRole;
 export type UserRoleType = (typeof UserRole)[UserRoleKey];
 
-type UserContextType = {
+export type UserType = {
   id: string;
   email: string;
   name: string;
   role: UserRoleType;
-  loginRole: UserRoleType;
-  setUser: (user: any) => void;
+  loginRole: UserRoleType | "";
 };
+
+type UserContextType = {
+  setUser: (user: any) => void;
+} & UserType;
 
 const actions = {
   SET_USER: "SET_USER",
@@ -27,7 +30,7 @@ interface State {
   email: string;
   name: string;
   role: UserRole;
-  logintRole: UserRole;
+  loginRole: UserRole | "";
 }
 
 type Action = {
@@ -40,12 +43,13 @@ const initialState: State = {
   email: "",
   name: "",
   role: UserRole.USER,
-  logintRole: UserRole.USER,
+  loginRole: "",
 };
 
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case actions.SET_USER:
+      console.log("setuser", action.value);
       return { ...state, ...action.value };
     default:
       throw new Error("Unknown action");
@@ -66,13 +70,15 @@ const UserContextProvider: React.FC<{ children?: React.ReactNode }> = ({
     email: state.email,
     name: state.name,
     role: state.role,
-    loginRole: state.role,
+    loginRole: state.loginRole,
     setUser,
   };
 
   useEffect(() => {
     const storedState = localStorage.getItem("userContextValue");
+    console.log("storedState", storedState);
     if (storedState) {
+      console.log("set init");
       setUser(JSON.parse(storedState));
     }
   }, []);

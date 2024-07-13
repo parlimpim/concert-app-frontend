@@ -28,7 +28,7 @@ export default {
     NAME_PLACEHOLDER: "Name",
   },
   SIDEBAR: {
-    SWITCH_ROLE: "Switch Role to ",
+    SWITCH_ROLE: "Switch Role to {0}",
   },
   HOME: {
     CREATE_CONCERT: {
