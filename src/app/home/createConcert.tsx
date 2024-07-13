@@ -2,7 +2,7 @@
 import TextField from "@/components/textField";
 import en from "@/utils/en";
 import styles from "./styles/createConcert.module.scss";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Button from "@/components/button";
 
 const {
@@ -25,6 +25,8 @@ const CreateConcert = () => {
   const [name, setName] = useState("");
   const [seat, setSeat] = useState("");
   const [description, setDescription] = useState("");
+
+  const onCreate = useCallback(() => {}, []);
 
   return (
     <div className={styles.create}>
@@ -55,7 +57,7 @@ const CreateConcert = () => {
         rows={5}
         textarea
       />
-      <Button id="save" className={styles.create__actions} onClick={() => {}}>
+      <Button id="save" className={styles.create__actions} onClick={onCreate}>
         <div>{SAVE}</div>
       </Button>
     </div>

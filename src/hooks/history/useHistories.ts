@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import * as queryKeys from "./queryKeys";
+import * as queryKeys from "../queryKeys";
 import { listHistories } from "@/utils/apiRequest";
 import { PaginationMetadataType } from "@/utils/pagination";
 

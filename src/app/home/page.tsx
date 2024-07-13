@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useContext, useState } from "react";
-import { useConcerts } from "@/hooks";
+import { useConcerts, useMutateConcert, useMutateDeleteConcert } from "@/hooks";
 import { UserContext, UserRole } from "@/contexts/userContext";
 import AppLayout from "@/layouts/appLayout";
 import Concert, { ConcertType } from "./concert";
@@ -32,12 +32,11 @@ const Home = () => {
   const [concertName, setConcertName] = useState("");
   const [concertId, setConcertId] = useState("");
 
+  // mutate
+  const { mutate: mutateDeleteConcert } = useMutateDeleteConcert(false);
+
   const { loginRole } = useContext(UserContext)!;
   const { data, isLoading, error } = useConcerts({});
-
-  // Todo: handle error and loading
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   const onClick = useCallback(
     (action: string, concertName: string, concertId: string) => {
@@ -51,8 +50,13 @@ const Home = () => {
 
   // TODO: mutate
   const onDone = useCallback(() => {
+    setShowConfirmModal(false);
+
     switch (action) {
       case "delete": {
+        mutateDeleteConcert({
+          id: concertId,
+        });
       }
       case "cancel": {
       }
@@ -60,6 +64,20 @@ const Home = () => {
       }
     }
   }, [action, concertId]);
+
+  // Todo: handle error and loading
+  if (isLoading)
+    return (
+      <AppLayout>
+        <div className={styles.home}>Loading...</div>
+      </AppLayout>
+    );
+  if (error)
+    return (
+      <AppLayout>
+        <div className={styles.home}>Error: {error.message}</div>
+      </AppLayout>
+    );
 
   return (
     <AppLayout>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Karla } from "next/font/google";
 import { ReactQueryClientProvider } from "@/utils/reactQueryClientProvider";
+import Notify from "@/utils/notify";
 import "./globals.scss";
 
 // context
@@ -24,7 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={karla.className}>
         <ReactQueryClientProvider>
-          <ContextProvider>{children}</ContextProvider>
+          <ContextProvider>
+            <Notify>{children}</Notify>
+          </ContextProvider>
         </ReactQueryClientProvider>
       </body>
     </html>
