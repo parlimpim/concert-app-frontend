@@ -13,6 +13,7 @@ const useConcerts = () => {
     queryFn: ({ pageParam }) => fetchConcerts({ pageParam }),
     initialPageParam: 1,
     retry: 3,
+    refetchInterval: 30 * 1000,
     getNextPageParam: (lastPage, allPages) => {
       const morePagesExist =
         lastPage.metadata.page < lastPage.metadata.totalPages;

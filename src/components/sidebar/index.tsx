@@ -58,7 +58,6 @@ const Sidebar = () => {
     try {
       const response = await switchRole(newRole);
       setUser(response.user);
-      window.location.reload();
     } catch (error: any) {
       if (error.response) {
         const { message } = error.response.data as ErrorResponse;
