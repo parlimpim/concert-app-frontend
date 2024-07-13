@@ -20,3 +20,12 @@ export enum UserRole {
 
 type UserRoleKey = keyof typeof UserRole;
 export type UserRoleType = (typeof UserRole)[UserRoleKey];
+
+// Sidebar menus
+export enum Menus {
+  HOME = "Home",
+  HISTORY = "History",
+}
+
+type MenusKey = keyof typeof Menus;
+export type MenusType = (typeof Menus)[MenusKey];

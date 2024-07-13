@@ -2,19 +2,12 @@
 import { createContext, useEffect, useReducer } from "react";
 import { usePathname } from "next/navigation";
 import { FaHome, FaHistory } from "react-icons/fa";
-
-export enum Menus {
-  HOME = "Home",
-  HISTORY = "History",
-}
+import { Menus, MenusType } from "@/utils/enums";
 
 export const MenuDetails: Record<Menus, { link: string; icon: any }> = {
   [Menus.HOME]: { link: "/home", icon: <FaHome /> },
   [Menus.HISTORY]: { link: "/history", icon: <FaHistory /> },
 };
-
-type MenusKey = keyof typeof Menus;
-export type MenusType = (typeof Menus)[MenusKey];
 
 type SidebarContextType = {
   selectedMenu: MenusType;

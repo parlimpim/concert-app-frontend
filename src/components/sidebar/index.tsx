@@ -14,7 +14,7 @@ import { LuLogOut } from "react-icons/lu";
 
 // contexts
 import { UserContext } from "@/contexts/userContext";
-import { SidebarContext, Menus, MenuDetails } from "@/contexts/sidebarContext";
+import { SidebarContext, MenuDetails } from "@/contexts/sidebarContext";
 
 // utils
 import en from "@/utils/en";
@@ -22,7 +22,7 @@ import { formatString } from "@/utils";
 import { logoutUser, switchRole } from "@/utils/auth";
 import { ErrorResponse } from "@/utils/responseTypes";
 import { cancelTokenSource } from "@/utils/axiosInstance";
-import { UserRole } from "@/utils/enums";
+import { UserRole, Menus } from "@/utils/enums";
 
 import LoadingSpinner from "../loadingSpinner";
 import styles from "./sidebar.module.scss";
