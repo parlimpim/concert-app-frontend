@@ -11,7 +11,7 @@
 
     &__detail {
       display: grid;
-      grid-template-rows: [row1-start] 18% [row1-end] 30% [third-line] auto [last-line];
+      grid-template-rows: [row1-start] 20% [row1-end] 30% [third-line] auto [last-line];
 
       &.show {
         left: 0;
