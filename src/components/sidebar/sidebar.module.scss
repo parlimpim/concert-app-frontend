@@ -1,0 +1,131 @@
+.sidebar-container {
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  .sidebar {
+    padding: 2rem 1.5rem;
+    height: 100%;
+    display: grid;
+
+    &__detail {
+      display: grid;
+      grid-template-rows: [row1-start] 20% [row1-end] 30% [third-line] auto [last-line];
+
+      &.show {
+        left: 0;
+      }
+    }
+
+    &__user {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+
+      .name {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #050c3f;
+      }
+
+      .role {
+        font-size: 1.5;
+        color: var(--primary-gray);
+      }
+    }
+
+    &__menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .item {
+        font-size: 18px;
+        border-radius: 4px;
+        width: 230px;
+        padding: 10px 10px;
+
+        &.selected,
+        &.selected:hover {
+          font-weight: 600;
+          color: var(--primary-white);
+          background-color: var(--primary-blue);
+        }
+
+        &:hover {
+          background-color: var(--secondary-gray);
+          cursor: pointer;
+        }
+
+        &__detail {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+      }
+    }
+
+    &__logout {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      align-self: flex-end;
+      padding: 10px 10px 10px 15px;
+      font-size: 18px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &__close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    &__toggle {
+      display: inline-flex;
+      cursor: pointer;
+    }
+  }
+}
+
+/* screens larger than 768px (tablet and larger) */
+@media screen and (min-width: 768px) {
+  .sidebar-container {
+    border-right: solid 1px var(--border);
+
+    .sidebar {
+      &__close,
+      &__toggle {
+        display: none;
+      }
+    }
+  }
+}
+
+/* define style of sidebar detail */
+@media screen and (max-width: 767px) {
+  .sidebar-container {
+    .sidebar {
+      height: min-content;
+      padding: 1rem;
+
+      &__detail {
+        position: fixed;
+        background-color: var(--primary-white);
+        left: -100%;
+        top: 0;
+        height: 100%;
+        padding: 2rem 1rem;
+        transition: 0.5s;
+        border-right: solid 1px var(--border);
+      }
+    }
+  }
+}

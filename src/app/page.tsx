@@ -1,95 +1,82 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { Fragment, useState } from "react";
+import Link from "next/link";
+import cn from "classnames";
+import { IoIosCloseCircle, IoIosMenu } from "react-icons/io";
+import Button from "@/components/button";
+import en from "@/utils/en";
+import LoginModal from "./loginModal";
 
-export default function Home() {
+import styles from "./page.module.scss";
+
+const {
+  COMMON: { TICKET_VIBES },
+  LANDING: {
+    SUBTITLE,
+    DETAIL,
+    MENU: { HOME, ABOUT_US, CONTACT },
+  },
+} = en;
+
+const MENU = [HOME, ABOUT_US, CONTACT];
+
+const Landing = () => {
+  const [isShowMenu, setIsShowMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <Fragment>
+      <div className={styles.landing}>
+        <div className={styles.landing__header}>
+          <div className={styles.navbar}>
+            <Link href="#" className={styles.navbar__icon}>
+              {TICKET_VIBES}
+            </Link>
+            <div
+              className={cn(styles.navbar__menu, { [styles.show]: isShowMenu })}
+            >
+              <ul className={styles.navbar__list}>
+                {MENU.map((menu) => (
+                  <li key={menu}>
+                    <Link href="#">{menu}</Link>
+                  </li>
+                ))}
+              </ul>
+              <div className={styles.navbar__close}>
+                <IoIosCloseCircle
+                  onClick={() => setIsShowMenu(false)}
+                  color="white"
+                />
+              </div>
+            </div>
+            <div className={styles.navbar__toggle_menu}>
+              <IoIosMenu
+                color="white"
+                fontSize={"2rem"}
+                onClick={() => setIsShowMenu((prev) => !prev)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.landing__main}>
+          <div className={styles.detail}>
+            <div className={styles.title}>{TICKET_VIBES}</div>
+            <div className={styles.subtitle}>{SUBTITLE}</div>
+            <div className={styles.detail}>{DETAIL}</div>
+            <Button
+              id="get-started-button"
+              secondary
+              className={styles.button}
+              onClick={() => setShowModal(true)}
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <LoginModal open={showModal} setOpen={setShowModal} />
+    </Fragment>
   );
-}
+};
+
+export default Landing;

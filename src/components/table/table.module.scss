@@ -1,0 +1,32 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+
+  &__header {
+    gap: 10px;
+    border: 1px solid var(--border);
+
+    thead th {
+      position: sticky;
+      top: 0px;
+    }
+
+    .item {
+      background: var(--table-header);
+      text-align: start;
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  &__body {
+  }
+
+  &__row {
+    border: 1px solid var(--border);
+  }
+
+  &__cell {
+    text-align: start;
+    padding: 1.25rem 0.5rem;
+  }
+}

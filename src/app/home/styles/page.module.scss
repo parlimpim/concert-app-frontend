@@ -1,0 +1,18 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 3rem 2rem 2rem 2rem;
+
+  &__concerts {
+    display: grid;
+    grid-row-gap: 20px;
+  }
+}
+
+/* screens larger than 768px (tablet and larger) */
+@media screen and (min-width: 768px) {
+  .home {
+    padding: 2rem 2rem 2rem 19rem;
+  }
+}

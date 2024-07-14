@@ -1,0 +1,21 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  padding: 3rem 2rem 2rem 2rem;
+
+  &__status {
+    padding: 0.4rem 0.8rem;
+    width: fit-content;
+    background-color: var(--secondary-deep-blue);
+    border-radius: 16px;
+    color: var(--primary-deep-blue);
+  }
+}
+
+/* screens larger than 768px (tablet and larger) */
+@media screen and (min-width: 768px) {
+  .history {
+    padding: 2rem 2rem 2rem 19rem;
+  }
+}
