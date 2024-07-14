@@ -1,5 +1,7 @@
 # NextJS Concert Reservation App
+
 - The concert reservation application that allow user to reserve the concert.
+
 #### Remarks: This application will work when you run with [concert-app-backend](https://github.com/parlimpim/concert-app-backend)
 
 ## Getting started
@@ -24,6 +26,7 @@ After the dependencies are installed, configure the project by creating a new .e
 ```
 cp .env.example .env.local
 ```
+
 ### Running the app
 
 ```
@@ -33,3 +36,10 @@ npm run dev
 ### To Visit App
 
 go to [http://localhost:3000](http://localhost:3000)
+
+### Future Enhancements
+- Unit test
+- Skeleton while loading data
+- Handle long time loading
+- Sign up
+- Enhance user expirence e.g. diabled button while load data

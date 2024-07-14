@@ -1,6 +1,5 @@
 .sidebar-container {
   position: fixed;
-  height: 100%;
   top: 0;
   left: 0;
 
@@ -99,6 +98,7 @@
 @media screen and (min-width: 768px) {
   .sidebar-container {
     border-right: solid 1px var(--border);
+    height: 100%;
 
     .sidebar {
       &__close,
@@ -114,6 +114,8 @@
   .sidebar-container {
     .sidebar {
       height: min-content;
+      width: 100vw;
+      background-color: white;
       padding: 1rem;
 
       &__detail {
